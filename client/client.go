@@ -21,10 +21,17 @@ func TCPDail() {
 
 	var wg sync.WaitGroup
 	concurrentLimit := 5
+
 	semaphore := make(chan struct{}, concurrentLimit)
-	data := make([]byte, 0)
-	for {
+
+	data := []byte("Hello, server")
+
+	messageLength := 1
+
+	for i := 0; i < messageLength; i++ {
 		wg.Add(1)
 		go TCPUpload(data, &wg, semaphore, conn)
 	}
+
+	wg.Wait()
 }

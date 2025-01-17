@@ -1,7 +1,18 @@
 package main
 
-import "fmt"
+import (
+	"go-file-transfer/client"
+	"go-file-transfer/server"
+	"time"
+)
 
 func main() {
-	fmt.Println("hello")
+	go server.TCPListenAndAccept()
+
+	time.Sleep(1 * time.Second)
+
+	client.TCPDail()
+
+	time.Sleep(1 * time.Second)
+
 }

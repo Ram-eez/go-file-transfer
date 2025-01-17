@@ -7,10 +7,13 @@ import (
 )
 
 func HandleConn(conn net.Conn) {
+
+	defer conn.Close()
+
 	data := make([]byte, 1024)
-	message, err := conn.Read([]byte(data))
+	messageLength, err := conn.Read(data)
 	if err != nil {
 		log.Fatal(err)
 	}
-	fmt.Printf("Message recived: %+v", message)
+	fmt.Printf("Message recived: %s", string(data[:messageLength]))
 }
