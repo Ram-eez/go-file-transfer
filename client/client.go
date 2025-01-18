@@ -24,13 +24,15 @@ func TCPDail() {
 
 	semaphore := make(chan struct{}, concurrentLimit)
 
-	data := []byte("Hello, server")
+	// data := []byte("Hello, server")
+
+	filepath := "/home/rameez/Documents/testfile.txt"
 
 	messageLength := 1
 
 	for i := 0; i < messageLength; i++ {
 		wg.Add(1)
-		go TCPUpload(data, &wg, semaphore, conn)
+		go TCPUpload(filepath, &wg, semaphore, conn)
 	}
 
 	wg.Wait()
