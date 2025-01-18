@@ -2,20 +2,20 @@ package client
 
 import (
 	"fmt"
+	"go-file-transfer/models"
 	"io"
 	"log"
 	"net"
-	"os"
 	"sync"
 )
 
-func TCPUpload(filepath string, wg *sync.WaitGroup, semaphore chan struct{}, conn net.Conn) {
+func TCPUpload(file *models.File, wg *sync.WaitGroup, semaphore chan struct{}, conn net.Conn) {
 
 	defer wg.Done()
 	semaphore <- struct{}{}
 
 	buf := make([]byte, 1024)
-	data := OpenFile(filepath)
+	data := file.OpenFile(file.Location, file.Name)
 
 	for {
 		n, err := data.Read(buf)
@@ -35,13 +35,4 @@ func TCPUpload(filepath string, wg *sync.WaitGroup, semaphore chan struct{}, con
 	}
 	<-semaphore
 	fmt.Println("Data sent to server")
-}
-
-func OpenFile(filepath string) *os.File {
-	data, err := os.Open(filepath)
-	if err != nil {
-		log.Fatal(err)
-	}
-
-	return data
 }

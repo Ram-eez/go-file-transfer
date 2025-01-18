@@ -1,6 +1,7 @@
 package client
 
 import (
+	"go-file-transfer/models"
 	"log"
 	"net"
 	"sync"
@@ -26,13 +27,20 @@ func TCPDail() {
 
 	// data := []byte("Hello, server")
 
-	filepath := "/home/rameez/Documents/testfile.txt"
+	fileLocation := "/home/rameez/Documents"
+	fileName := "testfile.txt"
+
+	file := &models.File{
+		Location: fileLocation,
+		Name:     fileName,
+	}
+	// file.FileSet(fileLocation, fileName)
 
 	messageLength := 1
 
 	for i := 0; i < messageLength; i++ {
 		wg.Add(1)
-		go TCPUpload(filepath, &wg, semaphore, conn)
+		go TCPUpload(file, &wg, semaphore, conn)
 	}
 
 	wg.Wait()
