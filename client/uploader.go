@@ -14,6 +14,16 @@ func TCPUpload(file *models.File, wg *sync.WaitGroup, semaphore chan struct{}, c
 	defer wg.Done()
 	semaphore <- struct{}{}
 
+	metadata, err := file.Serilalize()
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	_, err = conn.Write(metadata)
+	if err != nil {
+		log.Fatal(err)
+	}
+
 	buf := make([]byte, 1024)
 	data := file.OpenFile(file.Location, file.Name)
 
