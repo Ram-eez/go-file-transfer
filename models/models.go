@@ -39,9 +39,3 @@ func (f *File) CreateFile() (*os.File, error) {
 	return file, nil
 }
 
-// func (f *File) WriteIntoFile(buf []byte, n int) error {
-// 	if err := os.WriteFile(f.Location+"/"+f.Name, buf[:n], 0777); err != nil {
-// 		return err
-// 	}
-// 	return nil
-// }
