@@ -12,6 +12,8 @@ type File struct {
 	Size     int64
 }
 
+var Files []File
+
 func (f *File) OpenFile(location string, name string) *os.File {
 	data, err := os.Open(location + "/" + name)
 	if err != nil {
@@ -39,12 +41,3 @@ func (f *File) CreateFile() (*os.File, error) {
 
 	return file, nil
 }
-
-// func (f *File) GetFileInfo() os.FileInfo {
-// 	fileSize, err := os.Stat(f.Location + "/" + f.Name)
-// 	if err != nil {
-// 		log.Fatal(err)
-// 	}
-
-// 	return fileSize
-// }

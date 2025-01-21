@@ -34,11 +34,11 @@ func TCPDail() {
 
 	file := FileInit(fileLocation, fileName)
 
-	messageLength := 1
+	models.Files = append(models.Files, *file)
 
-	for i := 0; i < messageLength; i++ {
+	for _, file := range models.Files {
 		wg.Add(1)
-		go TCPUpload(file, &wg, semaphore, conn)
+		go TCPUpload(&file, &wg, semaphore, conn)
 	}
 
 	wg.Wait()
