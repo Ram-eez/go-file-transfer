@@ -7,6 +7,7 @@ import (
 	"log"
 	"net"
 	"sync"
+	"time"
 )
 
 func TCPUpload(file *models.File, wg *sync.WaitGroup, semaphore chan struct{}, conn net.Conn) {
@@ -44,5 +45,6 @@ func TCPUpload(file *models.File, wg *sync.WaitGroup, semaphore chan struct{}, c
 
 	}
 	<-semaphore
-	fmt.Println("Data sent to server")
+	time.Sleep(time.Second * 2)
+	fmt.Println("\nData Sent Successfully")
 }

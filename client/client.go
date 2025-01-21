@@ -28,8 +28,8 @@ func TCPDail() {
 
 	// data := []byte("Hello, server")
 
-	fileLocation := "/home/rameez/Downloads/New Folder/"
-	fileName := "firmware.zip"
+	fileLocation := "/home/rameez/Downloads/New Folder/DespicableMe/"
+	fileName := "DespicableMe.mp4"
 	// file.FileSet(fileLocation, fileName)
 
 	file := FileInit(fileLocation, fileName)
