@@ -9,7 +9,7 @@ import (
 type File struct {
 	Location string
 	Name     string
-	Size     string
+	Size     int64
 }
 
 func (f *File) OpenFile(location string, name string) *os.File {
@@ -36,6 +36,15 @@ func (f *File) CreateFile() (*os.File, error) {
 		log.Fatal(err)
 		return nil, err
 	}
+
 	return file, nil
 }
 
+// func (f *File) GetFileInfo() os.FileInfo {
+// 	fileSize, err := os.Stat(f.Location + "/" + f.Name)
+// 	if err != nil {
+// 		log.Fatal(err)
+// 	}
+
+// 	return fileSize
+// }

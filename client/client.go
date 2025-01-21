@@ -4,6 +4,7 @@ import (
 	"go-file-transfer/models"
 	"log"
 	"net"
+	"os"
 	"sync"
 )
 
@@ -27,14 +28,11 @@ func TCPDail() {
 
 	// data := []byte("Hello, server")
 
-	fileLocation := "/home/rameez/Documents"
-	fileName := "testfile.txt"
-
-	file := &models.File{
-		Location: fileLocation,
-		Name:     fileName,
-	}
+	fileLocation := "/home/rameez/Downloads/New Folder/"
+	fileName := "firmware.zip"
 	// file.FileSet(fileLocation, fileName)
+
+	file := FileInit(fileLocation, fileName)
 
 	messageLength := 1
 
@@ -44,4 +42,20 @@ func TCPDail() {
 	}
 
 	wg.Wait()
+}
+
+func FileInit(FilePath string, FileName string) *models.File {
+
+	FileSize, err := os.Stat(FilePath + "/" + FileName)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	file := &models.File{
+		Location: FilePath,
+		Name:     FileName,
+		Size:     FileSize.Size(),
+	}
+
+	return file
 }
