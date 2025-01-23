@@ -9,7 +9,7 @@ import (
 )
 
 func TCPDail() {
-	addr, err := net.ResolveTCPAddr("tcp", "localhost:3000")
+	addr, err := net.ResolveTCPAddr("tcp", ":3000")
 	if err != nil {
 		log.Fatal(err)
 	}
